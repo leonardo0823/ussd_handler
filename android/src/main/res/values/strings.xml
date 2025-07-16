@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ussd_accessibility_service_description">
+        Allows USSD Handler to automatically capture USSD responses for a better user experience. 
+        This service only accesses USSD dialogs from the phone system and does not read personal information.
+    </string>
+    <string name="ussd_accessibility_service_label">USSD Handler</string>
+    <string name="accessibility_service_required_title">Accessibility Service Required</string>
+    <string name="accessibility_service_required_message">To automatically capture USSD responses, you need to enable the USSD Handler accessibility service in Settings.</string>
+    <string name="accessibility_service_open_settings">Open Settings</string>
+    <string name="accessibility_service_cancel">Cancel</string>
+</resources>
