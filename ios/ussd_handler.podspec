@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ussd_handler'
-  s.version          = '1.0.0'
+  s.version          = '0.0.1'
   s.summary          = 'A Flutter plugin for executing USSD codes natively on iOS.'
   s.description      = <<-DESC
 Flutter plugin for executing USSD codes on iOS devices. 

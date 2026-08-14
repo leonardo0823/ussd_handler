@@ -1,28 +1,22 @@
 PODS:
   - Flutter (1.0.0)
-  - integration_test (0.0.1):
-    - Flutter
-  - ussd_handler (1.0.0):
+  - ussd_handler (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - ussd_handler (from `.symlinks/plugins/ussd_handler/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  integration_test:
-    :path: ".symlinks/plugins/integration_test/ios"
   ussd_handler:
     :path: ".symlinks/plugins/ussd_handler/ios"
 
 SPEC CHECKSUMS:
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
-  ussd_handler: 855059ea69d703b06a405ac1647943199ab4372f
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
+  ussd_handler: 120af26192309a35647c6b1ff3656809165efd20
 
-PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
+PODFILE CHECKSUM: 73923ef9eadcc26a2524dadc748c724f2ece5e15
 
 COCOAPODS: 1.16.2

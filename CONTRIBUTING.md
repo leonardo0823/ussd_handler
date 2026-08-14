@@ -493,7 +493,7 @@ If applicable, add screenshots to explain the problem.
 - Device: [ex: Samsung Galaxy S21]
 - OS: [ex: Android 12]
 - Flutter: [ex: 3.16.0]
-- Plugin version: [ex: 1.0.0]
+- Plugin version: [ex: 0.0.1]
 
 **Additional Information**
 Any other context about the problem.

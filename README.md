@@ -24,7 +24,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ussd_handler: ^1.0.0
+  ussd_handler: ^0.0.1
 ```
 
 ### Android Configuration
