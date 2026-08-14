@@ -59,10 +59,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Complete Mocks**: Mock system for testing without hardware
 
 ### 📋 Compatibility
-- **Flutter**: `>=3.3.0`
-- **Dart**: `^3.7.0`
-- **Android**: API 21+ (Android 5.0+)
-- **iOS**: iOS 11.0+
+- **Flutter**: `>=3.44.0`
+- **Dart**: `^3.13.0`
+- **Android**: API 24+ (Android 7.0+)
+- **iOS**: iOS 15.0+
 
 ### 🔧 Configuration
 - **Android Permissions**:
