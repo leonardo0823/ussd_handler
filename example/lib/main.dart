@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 
 import 'package:ussd_handler/ussd_handler.dart';
@@ -669,22 +670,19 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: const .all(16.0),
           child: Column(
             children: [
               // ==================== SYSTEM INFORMATION ====================
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const .all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       const Text(
                         'System Information',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 18, fontWeight: .bold),
                       ),
                       const SizedBox(height: 16),
                       Text('Platform Version: $_platformVersion'),
@@ -703,7 +701,7 @@ class _MyAppState extends State<MyApp> {
                         const SizedBox(height: 16),
                         const Text(
                           'Select SIM:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: .bold),
                         ),
                         const SizedBox(height: 8),
                         DropdownButtonFormField<int?>(
@@ -711,7 +709,7 @@ class _MyAppState extends State<MyApp> {
                             border: OutlineInputBorder(),
                             labelText: 'SIM to use',
                           ),
-                          value: _selectedSubscriptionId,
+                          initialValue: _selectedSubscriptionId,
                           items: [
                             const DropdownMenuItem<int?>(
                               value: null,
@@ -744,7 +742,7 @@ class _MyAppState extends State<MyApp> {
                             border: OutlineInputBorder(),
                             labelText: 'SIM to use',
                           ),
-                          value: _selectedSubscriptionId,
+                          initialValue: _selectedSubscriptionId,
                           items: [
                             const DropdownMenuItem<int?>(
                               value: null,
@@ -765,7 +763,7 @@ class _MyAppState extends State<MyApp> {
                       ],
                       const SizedBox(height: 16),
                       SizedBox(
-                        width: double.infinity,
+                        width: .infinity,
                         child: ElevatedButton(
                           onPressed: _getSystemInfo,
                           child: const Text('Get Detailed Information'),
@@ -774,11 +772,11 @@ class _MyAppState extends State<MyApp> {
                       if (_systemInfo.isNotEmpty) ...[
                         const SizedBox(height: 16),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const .all(12),
                           decoration: BoxDecoration(
                             color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.grey[300]!),
+                            borderRadius: .circular(8),
+                            border: .all(color: Colors.grey[300]!),
                           ),
                           child: SingleChildScrollView(
                             child: Text(
@@ -801,24 +799,21 @@ class _MyAppState extends State<MyApp> {
               // ==================== BASIC USSD ====================
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const .all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       const Text(
                         'Basic USSD',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 18, fontWeight: .bold),
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const .all(8),
                         decoration: BoxDecoration(
                           color: Colors.blue[50],
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Colors.blue[200]!),
+                          borderRadius: .circular(6),
+                          border: .all(color: Colors.blue[200]!),
                         ),
                         child: const Text(
                           '📱 STANDARD METHOD: Uses the native Android USSD functionality. '
@@ -838,7 +833,7 @@ class _MyAppState extends State<MyApp> {
                       ),
                       const SizedBox(height: 16),
                       SizedBox(
-                        width: double.infinity,
+                        width: .infinity,
                         child: ElevatedButton(
                           onPressed: _executeUssd,
                           style: ElevatedButton.styleFrom(
@@ -851,26 +846,24 @@ class _MyAppState extends State<MyApp> {
                       if (_ussdResult.isNotEmpty) ...[
                         const SizedBox(height: 16),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const .all(12),
                           decoration: BoxDecoration(
-                            color:
-                                _ussdResult.contains('Success')
-                                    ? Colors.green[50]
-                                    : Colors.red[50],
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color:
-                                  _ussdResult.contains('Success')
-                                      ? Colors.green[200]!
-                                      : Colors.red[200]!,
+                            color: _ussdResult.contains('Success')
+                                ? Colors.green[50]
+                                : Colors.red[50],
+                            borderRadius: .circular(8),
+                            border: .all(
+                              color: _ussdResult.contains('Success')
+                                  ? Colors.green[200]!
+                                  : Colors.red[200]!,
                             ),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: .start,
                             children: [
                               const Text(
                                 'Basic USSD Result:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: .bold),
                               ),
                               const SizedBox(height: 8),
                               Text(_ussdResult),
@@ -888,24 +881,21 @@ class _MyAppState extends State<MyApp> {
               // ==================== DIRECT USSD ====================
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const .all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       const Text(
                         'Direct USSD (No Dialog)',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 18, fontWeight: .bold),
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const .all(8),
                         decoration: BoxDecoration(
                           color: Colors.orange[50],
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Colors.orange[200]!),
+                          borderRadius: .circular(6),
+                          border: .all(color: Colors.orange[200]!),
                         ),
                         child: const Text(
                           '🚀 DIRECT METHOD: Executes USSD codes without showing the native dialog. '
@@ -925,7 +915,7 @@ class _MyAppState extends State<MyApp> {
                       ),
                       const SizedBox(height: 16),
                       SizedBox(
-                        width: double.infinity,
+                        width: .infinity,
                         child: ElevatedButton(
                           onPressed: _executeUssdDirect,
                           style: ElevatedButton.styleFrom(
@@ -938,26 +928,25 @@ class _MyAppState extends State<MyApp> {
                       if (_ussdDirectResult.isNotEmpty) ...[
                         const SizedBox(height: 16),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const .all(12),
                           decoration: BoxDecoration(
-                            color:
-                                _ussdDirectResult.contains('Direct response')
-                                    ? Colors.green[50]
-                                    : Colors.red[50],
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
+                            color: _ussdDirectResult.contains('Direct response')
+                                ? Colors.green[50]
+                                : Colors.red[50],
+                            borderRadius: .circular(8),
+                            border: .all(
                               color:
                                   _ussdDirectResult.contains('Direct response')
-                                      ? Colors.green[200]!
-                                      : Colors.red[200]!,
+                                  ? Colors.green[200]!
+                                  : Colors.red[200]!,
                             ),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: .start,
                             children: [
                               const Text(
                                 'Direct USSD Result:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: .bold),
                               ),
                               const SizedBox(height: 8),
                               Text(_ussdDirectResult),
@@ -975,24 +964,21 @@ class _MyAppState extends State<MyApp> {
               // ==================== MULTI-USSD SESSIONS ====================
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const .all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       const Text(
                         'Multi-USSD Sessions',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 18, fontWeight: .bold),
                       ),
                       const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const .all(8),
                         decoration: BoxDecoration(
                           color: Colors.green[50],
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Colors.green[200]!),
+                          borderRadius: .circular(6),
+                          border: .all(color: Colors.green[200]!),
                         ),
                         child: const Text(
                           '🌟 MULTI-USSD: Handles multiple USSD sessions simultaneously. '
@@ -1024,24 +1010,23 @@ class _MyAppState extends State<MyApp> {
 
                       // Main multi-session button (similar to ussd_advanced)
                       SizedBox(
-                        width: double.infinity,
+                        width: .infinity,
                         child: ElevatedButton(
-                          onPressed:
-                              _isMultiSessionActive
-                                  ? null
-                                  : () async {
-                                    await _executeMultiSessionFlow();
-                                  },
+                          onPressed: _isMultiSessionActive
+                              ? null
+                              : () async {
+                                  await _executeMultiSessionFlow();
+                                },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            padding: const .symmetric(vertical: 16),
                           ),
                           child: Text(
                             _isMultiSessionActive
                                 ? '🟢 Session in Progress...'
                                 : '🚀 Execute Complete\nMulti-Session',
-                            textAlign: TextAlign.center,
+                            textAlign: .center,
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
@@ -1052,20 +1037,16 @@ class _MyAppState extends State<MyApp> {
                       // Individual buttons for manual control
                       const Text(
                         'Manual Control (Advanced):',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(fontWeight: .bold, fontSize: 14),
                       ),
                       const SizedBox(height: 8),
                       Row(
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed:
-                                  _isMultiSessionActive
-                                      ? null
-                                      : _startMultiSession,
+                              onPressed: _isMultiSessionActive
+                                  ? null
+                                  : _startMultiSession,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
                                 foregroundColor: Colors.white,
@@ -1076,10 +1057,9 @@ class _MyAppState extends State<MyApp> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed:
-                                  _isMultiSessionActive
-                                      ? _sendMessageInSession
-                                      : null,
+                              onPressed: _isMultiSessionActive
+                                  ? _sendMessageInSession
+                                  : null,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orange,
                                 foregroundColor: Colors.white,
@@ -1090,10 +1070,9 @@ class _MyAppState extends State<MyApp> {
                           const SizedBox(width: 8),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed:
-                                  _isMultiSessionActive
-                                      ? _cancelMultiSession
-                                      : null,
+                              onPressed: _isMultiSessionActive
+                                  ? _cancelMultiSession
+                                  : null,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.red,
                                 foregroundColor: Colors.white,
@@ -1106,7 +1085,7 @@ class _MyAppState extends State<MyApp> {
 
                       const SizedBox(height: 8),
                       SizedBox(
-                        width: double.infinity,
+                        width: .infinity,
                         child: ElevatedButton(
                           onPressed: _openAccessibilitySettings,
                           style: ElevatedButton.styleFrom(
@@ -1120,42 +1099,38 @@ class _MyAppState extends State<MyApp> {
                       if (_multiSessionResult.isNotEmpty) ...[
                         const SizedBox(height: 16),
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const .all(12),
                           decoration: BoxDecoration(
                             color:
                                 _multiSessionResult.contains('successfully') ||
-                                        _multiSessionResult.contains('Success')
-                                    ? Colors.green[50]
-                                    : _multiSessionResult.contains('ERROR') ||
-                                        _multiSessionResult.contains('Error')
-                                    ? Colors.red[50]
-                                    : Colors.blue[50],
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
+                                    _multiSessionResult.contains('Success')
+                                ? Colors.green[50]
+                                : _multiSessionResult.contains('ERROR') ||
+                                      _multiSessionResult.contains('Error')
+                                ? Colors.red[50]
+                                : Colors.blue[50],
+                            borderRadius: .circular(8),
+                            border: .all(
                               color:
                                   _multiSessionResult.contains(
-                                            'successfully',
-                                          ) ||
-                                          _multiSessionResult.contains(
-                                            'Success',
-                                          )
-                                      ? Colors.green[200]!
-                                      : _multiSessionResult.contains('ERROR') ||
-                                          _multiSessionResult.contains('Error')
-                                      ? Colors.red[200]!
-                                      : Colors.blue[200]!,
+                                        'successfully',
+                                      ) ||
+                                      _multiSessionResult.contains('Success')
+                                  ? Colors.green[200]!
+                                  : _multiSessionResult.contains('ERROR') ||
+                                        _multiSessionResult.contains('Error')
+                                  ? Colors.red[200]!
+                                  : Colors.blue[200]!,
                             ),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: .start,
                             children: [
                               Text(
                                 _isMultiSessionActive
                                     ? 'Multi-USSD Session Status:'
                                     : 'Multi-Session Result:',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: const TextStyle(fontWeight: .bold),
                               ),
                               const SizedBox(height: 8),
                               Text(_multiSessionResult),
@@ -1173,22 +1148,19 @@ class _MyAppState extends State<MyApp> {
               // ==================== RECOMMENDED CODES ====================
               const Card(
                 child: Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: .all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: [
                       Text(
                         'Recommended USSD Codes for Testing',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 18, fontWeight: .bold),
                       ),
                       SizedBox(height: 8),
                       Text(
                         '🔥 UNIVERSAL CODES (work on all devices):',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: .bold,
                           color: Colors.green,
                         ),
                       ),
@@ -1198,7 +1170,7 @@ class _MyAppState extends State<MyApp> {
                       Text(
                         '📱 CODES BY CARRIER (may vary):',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: .bold,
                           color: Colors.orange,
                         ),
                       ),
@@ -1219,26 +1191,17 @@ class _MyAppState extends State<MyApp> {
                       SizedBox(height: 8),
                       Text(
                         '🚨 DO YOU GET ERROR CODE -1?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
+                        style: TextStyle(fontWeight: .bold, color: Colors.red),
                       ),
                       Text(
                         'This error means that your carrier does NOT support the code you tried. '
                         'This is NORMAL and does NOT indicate a problem with the plugin.',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
-                        ),
+                        style: TextStyle(fontSize: 12, fontStyle: .italic),
                       ),
                       SizedBox(height: 4),
                       Text(
                         '✅ QUICK SOLUTION:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
+                        style: TextStyle(fontWeight: .bold, color: Colors.blue),
                       ),
                       Text('1. Try with *#06# (IMEI) - always works'),
                       Text('2. Look for specific codes from your carrier'),
@@ -1246,10 +1209,7 @@ class _MyAppState extends State<MyApp> {
                       SizedBox(height: 8),
                       Text(
                         '⚠️ IMPORTANT NOTE:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
+                        style: TextStyle(fontWeight: .bold, color: Colors.red),
                       ),
                       Text(
                         'If a USSD code fails, it does NOT mean the plugin is broken. '
@@ -1261,10 +1221,7 @@ class _MyAppState extends State<MyApp> {
                       SizedBox(height: 8),
                       Text(
                         '💡 TIPS:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
+                        style: TextStyle(fontWeight: .bold, color: Colors.blue),
                       ),
                       Text('• Contact your carrier for valid codes'),
                       Text('• Dial the code manually first to verify'),
