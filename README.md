@@ -48,9 +48,6 @@ Add the accessibility service in `android/app/src/main/AndroidManifest.xml` insi
     <intent-filter>
         <action android:name="android.accessibilityservice.AccessibilityService" />
     </intent-filter>
-    <meta-data
-        android:name="android.accessibilityservice"
-        android:resource="@xml/ussd_service" />
 </service>
 ```
 

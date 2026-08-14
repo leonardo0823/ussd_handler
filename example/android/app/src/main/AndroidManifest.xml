@@ -45,9 +45,6 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/ussd_accessibility_service" />
         </service>
         
         <!-- Actividad para abrir configuración de accesibilidad -->
