@@ -4,13 +4,13 @@ version: 1.0.0
 homepage: https://github.com/leonardo0823/ussd_handler
 
 environment:
-  sdk: ^3.8.1
-  flutter: ">=3.3.0"
+  sdk: ^3.13.0
+  flutter: ">=3.44.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
+  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
   flutter_test:
@@ -39,7 +39,6 @@ flutter:
         pluginClass: UssdHandlerPlugin
       ios:
         pluginClass: UssdHandlerPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
