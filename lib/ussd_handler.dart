@@ -81,25 +81,26 @@ class SystemInfo {
       hasCallPermission: map['hasCallPermission'],
       hasReadPhoneStatePermission: map['hasReadPhoneStatePermission'],
       limitations: map['limitations']?.cast<String>(),
-      additionalInfo: Map<String, dynamic>.from(map)..removeWhere(
-        (key, value) => [
-          'platform',
-          'androidVersion',
-          'iosVersion',
-          'deviceModel',
-          'deviceName',
-          'simCount',
-          'supportsMultiSim',
-          'ussdSupported',
-          'ussdDirectSupported',
-          'multiSessionSupported',
-          'accessibilityServiceSupported',
-          'canMakePhoneCalls',
-          'hasCallPermission',
-          'hasReadPhoneStatePermission',
-          'limitations',
-        ].contains(key),
-      ),
+      additionalInfo: Map<String, dynamic>.from(map)
+        ..removeWhere(
+          (key, value) => [
+            'platform',
+            'androidVersion',
+            'iosVersion',
+            'deviceModel',
+            'deviceName',
+            'simCount',
+            'supportsMultiSim',
+            'ussdSupported',
+            'ussdDirectSupported',
+            'multiSessionSupported',
+            'accessibilityServiceSupported',
+            'canMakePhoneCalls',
+            'hasCallPermission',
+            'hasReadPhoneStatePermission',
+            'limitations',
+          ].contains(key),
+        ),
     );
   }
 
@@ -342,6 +343,82 @@ class UssdHandler {
     return UssdHandlerPlatform.instance.hasUssdDirectPermissions();
   }
 
+  /// Checks whether both required phone permissions (`CALL_PHONE` and `READ_PHONE_STATE`)
+  /// are currently granted by the user.
+  ///
+  /// Returns `true` if all permissions are granted, otherwise returns `false`.
+  ///
+  /// ### Example:
+  /// ```dart
+  /// bool hasPermissions = await UssdHandler.checkPhonePermissions();
+  /// if (!hasPermissions) {
+  ///   // Permissions are missing, request them.
+  /// }
+  /// ```
+  static Future<bool> checkPhonePermissions() async {
+    return UssdHandlerPlatform.instance.checkPhonePermissions();
+  }
+
+  /// Requests the necessary Android phone permissions native-side without external dependencies.
+  ///
+  /// This will trigger the standard Android system permission dialog to ask the user
+  /// for `CALL_PHONE` and `READ_PHONE_STATE` permissions.
+  ///
+  /// Returns `true` if the user grants the permissions. If the user denies them or
+  /// has previously selected "Don't ask again", this returns `false`.
+  ///
+  /// Throws a `PlatformException` if a native channel error occurs during the request.
+  ///
+  /// See also:
+  /// * [isPermissionPermanentlyDenied] to check if the user blocked the permission dialog.
+  static Future<bool> requestPhonePermissions() async {
+    return UssdHandlerPlatform.instance.requestPhonePermissions();
+  }
+
+  /// Checks whether the app should display an educational UI or rationale explaining
+  /// why these permissions are required.
+  ///
+  /// This triggers the native `ActivityCompat.shouldShowRequestPermissionRationale` API.
+  /// It returns `true` if the user has previously denied the permission request but
+  /// **has not** checked the "Don't ask again" checkbox yet.
+  ///
+  /// Returns `false` if the permissions have never been requested, are already granted,
+  /// or are permanently denied.
+  static Future<bool> shouldShowPermissionRationale() async {
+    return UssdHandlerPlatform.instance.shouldShowPermissionRationale();
+  }
+
+  /// Determines if the phone permissions have been permanently denied by the user.
+  ///
+  /// Returns `true` if the user denied the permissions and checked the **"Don't ask again"**
+  /// option (or if the system permanently restricts the app from requesting them).
+  /// When this happens, the native system dialog can no longer be displayed, and you must
+  /// redirect the user to the system settings using [openAppSettings].
+  ///
+  /// Returns `false` if permissions are granted or can still be requested via [requestPhonePermissions].
+  static Future<bool> isPermissionPermanentlyDenied() async {
+    return UssdHandlerPlatform.instance.isPermissionPermanentlyDenied();
+  }
+
+  /// Opens the current Android application details screen within the system settings.
+  ///
+  /// Use this method as a fallback when [isPermissionPermanentlyDenied] returns `true`,
+  /// allowing the user to manually enable the `CALL_PHONE` and `READ_PHONE_STATE` permissions.
+  ///
+  /// Returns `true` if the settings screen was successfully opened.
+  ///
+  /// Throws a `PlatformException` with the code `SETTINGS_ERROR` if the system intent fails.
+  ///
+  /// ### Example:
+  /// ```dart
+  /// if (await UssdHandler.isPermissionPermanentlyDenied()) {
+  ///   await UssdHandler.openAppSettings();
+  /// }
+  /// ```
+  static Future<bool> openAppSettings() async {
+    return UssdHandlerPlatform.instance.openAppSettings();
+  }
+
   // ==================== ACCESSIBILITY METHODS ====================
 
   /// Checks if the USSD accessibility service is enabled
@@ -398,8 +475,8 @@ class UssdHandler {
   /// ```
   static Future<AccessibilityEventChannelResult>
   setupAccessibilityEventChannel() async {
-    final result =
-        await UssdHandlerPlatform.instance.setupAccessibilityEventChannel();
+    final result = await UssdHandlerPlatform.instance
+        .setupAccessibilityEventChannel();
     return AccessibilityEventChannelResult.fromMap(result);
   }
 

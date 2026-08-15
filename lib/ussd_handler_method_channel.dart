@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -112,6 +114,69 @@ class MethodChannelUssdHandler extends UssdHandlerPlatform {
       debugPrint('Error checking direct USSD permissions: ${e.message}');
       return false;
     }
+  }
+
+  @override
+  Future<bool> checkPhonePermissions() async {
+    if (Platform.isIOS) {
+      // On iOS, the permissions are not required for USSD, so we can return true.
+      return true;
+    }
+    final bool? hasPermission = await methodChannel.invokeMethod(
+      'checkPhonePermissions',
+    );
+    return hasPermission ?? false;
+  }
+
+  @override
+  Future<bool> requestPhonePermissions() async {
+    if (Platform.isIOS) {
+      // On iOS, the permissions are not required for USSD, so we can return true.
+      return true;
+    }
+    try {
+      final bool? granted = await methodChannel.invokeMethod(
+        'requestPhonePermissions',
+      );
+      return granted ?? false;
+    } on PlatformException catch (e) {
+      print("Error requesting permissions: ${e.message}");
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> shouldShowPermissionRationale() async {
+    if (Platform.isIOS) {
+      // On iOS, the permissions are not required for USSD, so we can return false.
+      return false;
+    }
+    final bool? show = await methodChannel.invokeMethod(
+      'shouldShowPermissionRationale',
+    );
+    return show ?? false;
+  }
+
+  @override
+  Future<bool> isPermissionPermanentlyDenied() async {
+    if (Platform.isIOS) {
+      // On iOS, the permissions are not required for USSD, so we can return false.
+      return false;
+    }
+    final bool? isPermanent = await methodChannel.invokeMethod(
+      'isPermissionPermanentlyDenied',
+    );
+    return isPermanent ?? false;
+  }
+
+  @override
+  Future<bool> openAppSettings() async {
+    if (Platform.isIOS) {
+      // On iOS, the permissions are not required for USSD, so we can return false.
+      return false;
+    }
+    final bool? opened = await methodChannel.invokeMethod('openAppSettings');
+    return opened ?? false;
   }
 
   // ==================== ACCESSIBILITY METHODS ====================

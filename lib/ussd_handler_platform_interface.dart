@@ -73,6 +73,40 @@ abstract class UssdHandlerPlatform extends PlatformInterface {
     );
   }
 
+  /// Check if the package has the CALL_PHONE and READ_PHONE_STATE permissions.
+  Future<bool> checkPhonePermissions() async {
+    throw UnimplementedError(
+      'checkPhonePermissions() has not been implemented.',
+    );
+  }
+
+  /// Requests the necessary permissions natively, without third-party dependencies.
+  Future<bool> requestPhonePermissions() async {
+    throw UnimplementedError(
+      'requestPhonePermissions() has not been implemented.',
+    );
+  }
+
+  /// Indicates whether an explanation should be shown to the user (Temporarily denied)
+  Future<bool> shouldShowPermissionRationale() async {
+    throw UnimplementedError(
+      'shouldShowPermissionRationale() has not been implemented.',
+    );
+  }
+
+  /// Returns `true` if the user checked the **"Don't ask again"** option.
+  /// Always returns `false` on iOS.
+  Future<bool> isPermissionPermanentlyDenied() async {
+    throw UnimplementedError(
+      'isPermissionPermanentlyDenied() has not been implemented.',
+    );
+  }
+
+  /// Opens the application settings screen in the operating system.
+  Future<bool> openAppSettings() async {
+    throw UnimplementedError('openAppSettings() has not been implemented.');
+  }
+
   // ==================== ACCESSIBILITY METHODS ====================
 
   /// Checks if the accessibility service is enabled
