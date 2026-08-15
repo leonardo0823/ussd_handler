@@ -15,7 +15,8 @@ A complete Flutter plugin for handling USSD codes on Android and iOS with advanc
 ### 🌟 Advanced Features (Android)
 - **Multi-USSD Sessions** - Keep USSD dialogs open for multiple interactions
 - **Accessibility Service** - Automatic capture of USSD responses from system
-- **Automatic permission management** - Smart request for necessary permissions
+- **Native Permission Management** - Request and verify required phone permissions directly from the plugin without adding extra dependencies (like `permission_handler`).
+- **Smart Permission Rationale** - Detect if the user denied permissions permanently ("Don't ask again") and safely redirect them to system settings.
 - **Multi-SIM Support** - Execute USSD on specific SIMs with `subscriptionId`
 
 ## Installation
@@ -24,7 +25,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ussd_handler: ^0.0.1
+  ussd_handler: ^0.0.2
 ```
 
 ### Android Configuration
@@ -81,6 +82,37 @@ final response = await UssdHandler.executeUssd('*#06#');
 
 // ❌ Incorrect - Don't instantiate the class
 // final handler = UssdHandler(); // Error!
+```
+
+### 🛡️ Native Permission Handling
+
+You don't need any third-party permission library. The plugin handles the `CALL_PHONE` and `READ_PHONE_STATE` permissions natively.
+
+#### Standard Permission Flow
+
+```dart
+void checkAndRequestPermissions() async {
+  // 1. Check if permissions are already granted
+  bool isGranted = await UssdHandler.checkPhonePermissions();
+  
+  if (!isGranted) {
+    // 2. Request native permission dialog
+    isGranted = await UssdHandler.requestPhonePermissions();
+    
+    if (!isGranted) {
+      // 3. Handle permanent denial ("Don't ask again")
+      bool isPermanent = await UssdHandler.isPermissionPermanentlyDenied();
+      
+      if (isPermanent) {
+        // Show your own custom dialog to inform the user, then open settings
+        print("User permanently denied permissions. Redirecting to settings...");
+        await UssdHandler.openAppSettings();
+      } else {
+        print("User temporarily denied permissions.");
+      }
+    }
+  }
+}
 ```
 
 ### Standard USSD
@@ -463,7 +495,27 @@ class MultiSessionResult {
 }
 ```
 
-### Main Methods
+### Main & Permission Methods
+
+#### `checkPhonePermissions()`
+Checks whether both required phone permissions (`CALL_PHONE` and `READ_PHONE_STATE`) are granted.
+- **Returns:** `Future<bool>`
+
+#### `requestPhonePermissions()`
+Requests the necessary phone permissions native-side via the standard Android dialog.
+- **Returns:** `Future<bool>`
+
+#### `shouldShowPermissionRationale()`
+Checks if the app should display an educational UI explaining why the permissions are required (returns true if previously denied once).
+- **Returns:** `Future<bool>`
+
+#### `isPermissionPermanentlyDenied()`
+Determines if the user checked the **"Don't ask again"** option or blocked the dialog permanently.
+- **Returns:** `Future<bool>`
+
+#### `openAppSettings()`
+Opens the current application details screen within the Android system settings.
+- **Returns:** `Future<bool>`
 
 #### `executeUssd(String ussdCode, {int? subscriptionId})`
 Execute a USSD code using native system functionality.

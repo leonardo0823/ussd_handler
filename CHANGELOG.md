@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.2] - 2026-15-08
+
+### ✨ Added
+- **Native Permission Management**: Added full standalone methods to check and request `CALL_PHONE` and `READ_PHONE_STATE` permissions natively (`checkPhonePermissions` and `requestPhonePermissions`) without third-party dependencies.
+- **Permanent Denial Detection**: Added `isPermissionPermanentlyDenied` to detect if the user selected the "Don't ask again" option during the native permission dialog.
+- **Permission Rationale Support**: Added `shouldShowPermissionRationale` utilizing Android's native rationale API to know when to show educational UI to the user.
+- **System Settings Redirect**: Added `openAppSettings` to easily forward users to the application details screen so they can grant blocked permissions manually.
+
+### 🔧 Changed
+- **Manifest Conflict Resolution**: Fixed a critical `Manifest merger failed` error by restructuring how permissions and metadata are handled across application boundaries.
+- **Documentation**: Updated the API reference and code block examples inside `README.md` to reflect the new native permission helper methods.
+
+### 🗑️ Removed
+- **Manifest `tools:replace`**: Removed the incorrect `<meta-data tools:replace="android:resource" />` tag inside the package's internal `AndroidManifest.xml` which was breaking the main application's build process.
+
+---
+
 ## [0.0.1] - 2026-14-08
 
 ### ✨ Added
