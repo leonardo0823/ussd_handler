@@ -4,8 +4,34 @@ import 'dart:async';
 
 import 'package:ussd_handler/ussd_handler.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await requestPermissionsFlow();
+
   runApp(const MyApp());
+}
+
+Future<void> requestPermissionsFlow() async {
+  bool granted = await UssdHandler.checkPhonePermissions();
+
+  if (!granted) {
+    // 1. Try to request the permit in the usual way.
+    granted = await UssdHandler.requestPhonePermissions();
+
+    if (!granted) {
+      // 2. If it was not granted, check if it has been permanently denied ("Do not ask again").
+      bool isPermanent = await UssdHandler.isPermissionPermanentlyDenied();
+
+      if (isPermanent) {
+        // Display a custom dialog notifying the user that they need to go to settings.
+        print("The user selected 'Do not ask again'. Redirecting...");
+        await UssdHandler.openAppSettings();
+      } else {
+        print("The user denied the permission temporarily.");
+      }
+    }
+  }
 }
 
 class MyApp extends StatefulWidget {
