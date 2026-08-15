@@ -116,6 +116,31 @@ class MockUssdHandlerPlatform
 
   @override
   Future<bool> isMultiSessionActive() => Future.value(false);
+
+  @override
+  Future<bool> checkPhonePermissions() {
+    return Future.value(true);
+  }
+
+  @override
+  Future<bool> isPermissionPermanentlyDenied() {
+    return Future.value(false);
+  }
+
+  @override
+  Future<bool> openAppSettings() {
+    return Future.value(true);
+  }
+
+  @override
+  Future<bool> requestPhonePermissions() {
+    return Future.value(true);
+  }
+
+  @override
+  Future<bool> shouldShowPermissionRationale() {
+    return Future.value(false);
+  }
 }
 
 void main() {

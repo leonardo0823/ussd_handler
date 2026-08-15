@@ -71,10 +71,9 @@ class MockUssdHandlerPlatformForAccessibility
       Future.value({
         'success': _isAccessibilityEnabled,
         'serviceEnabled': _isAccessibilityEnabled,
-        'message':
-            _isAccessibilityEnabled
-                ? 'Accessibility service is enabled'
-                : 'Accessibility service not enabled',
+        'message': _isAccessibilityEnabled
+            ? 'Accessibility service is enabled'
+            : 'Accessibility service not enabled',
         'error': _isAccessibilityEnabled ? null : 'Service not enabled',
         'channelId': _isAccessibilityEnabled ? 'channel_123' : null,
       });
@@ -161,6 +160,35 @@ class MockUssdHandlerPlatformForAccessibility
   }
 
   Map<String, dynamic>? get lastStartedSession => _lastStartedSession;
+
+  @override
+  Future<bool> checkPhonePermissions() {
+    return Future.value(true);
+  }
+
+  @override
+  Future<bool> isPermissionPermanentlyDenied() {
+    // For testing, we can simulate that permissions are not permanently denied
+    return Future.value(false);
+  }
+
+  @override
+  Future<bool> openAppSettings() {
+    // Simulate opening app settings successfully
+    return Future.value(true);
+  }
+
+  @override
+  Future<bool> requestPhonePermissions() {
+    // Simulate requesting permissions successfully
+    return Future.value(true);
+  }
+
+  @override
+  Future<bool> shouldShowPermissionRationale() {
+    // Simulate that we don't need to show rationale
+    return Future.value(false);
+  }
 }
 
 void main() {
@@ -212,37 +240,28 @@ void main() {
         },
       );
 
-      test(
-        'should indicate service not enabled in event channel setup when disabled',
-        () async {
-          final result = await UssdHandler.setupAccessibilityEventChannel();
-          expect(result.success, false);
-          expect(result.serviceEnabled, false);
-        },
-      );
+      test('should indicate service not enabled in event channel setup when disabled', () async {
+        final result = await UssdHandler.setupAccessibilityEventChannel();
+        expect(result.success, false);
+        expect(result.serviceEnabled, false);
+      });
     });
 
     group('Multi-Session USSD - Prerequisites', () {
-      test(
-        'should fail to start multi-session when accessibility service is disabled',
-        () async {
-          final result = await UssdHandler.startMultiSessionUssd('*123#');
-          expect(result.success, false);
-          expect(result.error, 'Accessibility service not enabled');
-        },
-      );
+      test('should fail to start multi-session when accessibility service is disabled', () async {
+        final result = await UssdHandler.startMultiSessionUssd('*123#');
+        expect(result.success, false);
+        expect(result.error, 'Accessibility service not enabled');
+      });
 
-      test(
-        'should start multi-session successfully when accessibility service is enabled',
-        () async {
-          // Enable service first
-          await UssdHandler.openAccessibilitySettings();
+      test('should start multi-session successfully when accessibility service is enabled', () async {
+        // Enable service first
+        await UssdHandler.openAccessibilitySettings();
 
-          final result = await UssdHandler.startMultiSessionUssd('*123#');
-          expect(result.success, true);
-          expect(result.message, contains('*123#'));
-        },
-      );
+        final result = await UssdHandler.startMultiSessionUssd('*123#');
+        expect(result.success, true);
+        expect(result.message, contains('*123#'));
+      });
     });
 
     group('Multi-Session USSD - Session Management', () {

@@ -32,6 +32,16 @@ void main() {
               };
             case 'hasUssdDirectPermissions':
               return true;
+            case 'checkPhonePermissions':
+              return true;
+            case 'isPermissionPermanentlyDenied':
+              return false;
+            case 'openAppSettings':
+              return true;
+            case 'requestPhonePermissions':
+              return true;
+            case 'shouldShowPermissionRationale':
+              return false;
             case 'startUssdSession':
               return {
                 'success': true,
@@ -94,5 +104,30 @@ void main() {
   test('hasUssdDirectPermissions', () async {
     final hasPermissions = await platform.hasUssdDirectPermissions();
     expect(hasPermissions, true);
+  });
+
+  test('checkPhonePermissions', () async {
+    final hasPermissions = await platform.checkPhonePermissions();
+    expect(hasPermissions, true);
+  });
+
+  test('isPermissionPermanentlyDenied', () async {
+    final isDenied = await platform.isPermissionPermanentlyDenied();
+    expect(isDenied, false);
+  });
+
+  test('openAppSettings', () async {
+    final opened = await platform.openAppSettings();
+    expect(opened, true);
+  });
+
+  test('requestPhonePermissions', () async {
+    final requested = await platform.requestPhonePermissions();
+    expect(requested, true);
+  });
+
+  test('shouldShowPermissionRationale', () async {
+    final shouldShow = await platform.shouldShowPermissionRationale();
+    expect(shouldShow, false);
   });
 }
