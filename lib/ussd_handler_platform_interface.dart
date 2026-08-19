@@ -3,6 +3,7 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 import 'ussd_handler_method_channel.dart';
 import 'ussd_handler.dart';
 
+/// Abstract platform interface for the USSD handler plugin.
 abstract class UssdHandlerPlatform extends PlatformInterface {
   /// Constructs a UssdHandlerPlatform.
   UssdHandlerPlatform() : super(token: _token);
@@ -24,6 +25,7 @@ abstract class UssdHandlerPlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  /// Returns the OS version string, e.g., "Android 13" or "iOS 17.0".
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
@@ -61,7 +63,7 @@ abstract class UssdHandlerPlatform extends PlatformInterface {
     throw UnimplementedError('executeUssdDirect() has not been implemented.');
   }
 
-  /// Gets system information for diagnostics (Android only)
+  /// Gets system information and device capabilities for diagnostics.
   Future<Map<String, dynamic>?> getSystemInfo() {
     throw UnimplementedError('getSystemInfo() has not been implemented.');
   }

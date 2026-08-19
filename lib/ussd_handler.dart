@@ -2,8 +2,13 @@ import 'ussd_handler_platform_interface.dart';
 
 /// Result of executing a USSD code
 class UssdResponse {
+  /// The raw response text returned by the USSD service, or null if none.
   final String? response;
+
+  /// Whether the USSD operation completed without error.
   final bool success;
+
+  /// Human-readable error description when [success] is false.
   final String? errorMessage;
 
   UssdResponse({this.response, required this.success, this.errorMessage});
@@ -31,17 +36,37 @@ class SystemInfo {
   final int? androidVersion;
   final String? iosVersion;
   final String deviceModel;
+
+  /// iOS 16+ always returns "Unknown" without the device-information entitlement.
   final String deviceName;
+
+  /// Number of active SIM/eSIM slots detected by the OS.
   final int simCount;
+
+  /// True when [simCount] is greater than one.
   final bool supportsMultiSim;
   final bool ussdSupported;
+
+  /// Android only; always false on iOS.
   final bool ussdDirectSupported;
+
+  /// Android only; requires the accessibility service to be active.
   final bool multiSessionSupported;
+
+  /// Android only; always false on iOS.
   final bool accessibilityServiceSupported;
   final bool canMakePhoneCalls;
+
+  /// Android only; null on iOS (no CALL_PHONE permission model).
   final bool? hasCallPermission;
+
+  /// Android only; null on iOS.
   final bool? hasReadPhoneStatePermission;
+
+  /// Platform-specific limitation descriptions; populated on iOS.
   final List<String>? limitations;
+
+  /// Extra platform-specific key-value pairs not covered by typed fields.
   final Map<String, dynamic> additionalInfo;
 
   SystemInfo({
@@ -182,7 +207,11 @@ class AccessibilityEventChannelResult {
   final bool success;
   final String message;
   final String? error;
+
+  /// Whether the accessibility service is currently active on the device.
   final bool serviceEnabled;
+
+  /// Identifier of the configured event channel, or null if setup failed.
   final String? channelId;
 
   AccessibilityEventChannelResult({
@@ -219,8 +248,14 @@ class MultiSessionResult {
   final bool success;
   final String message;
   final String? error;
+
+  /// Unique identifier of the active USSD session, or null if not started.
   final String? sessionId;
+
+  /// The latest response text received from the USSD session.
   final String? ussdResponse;
+
+  /// Whether the session is still open and accepting messages.
   final bool sessionActive;
 
   MultiSessionResult({
@@ -255,10 +290,14 @@ class MultiSessionResult {
   }
 }
 
+/// Static API for all USSD operations on Android and iOS.
+///
+/// Call [getSystemInfo] first to check device capabilities before choosing
+/// between [executeUssd], [executeUssdDirect], or the multi-session API.
 class UssdHandler {
-  // Private constructor to prevent instantiation
   UssdHandler._();
 
+  /// Returns the OS version string, e.g., "Android 13" or "iOS 17.0".
   static Future<String?> getPlatformVersion() {
     return UssdHandlerPlatform.instance.getPlatformVersion();
   }
