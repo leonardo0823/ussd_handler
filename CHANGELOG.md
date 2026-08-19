@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.3] - 2026-18-08
+
+### ✨ Added
+- **Swift Package Manager Support**: Added `ios/ussd_handler/` and `ios/FlutterFramework/` as proper SPM packages, enabling modern dependency resolution on iOS without CocoaPods.
+- **PrivacyInfo inside SPM**: `PrivacyInfo.xcprivacy` is now bundled within the SPM package source tree (`ios/ussd_handler/Sources/ussd_handler/`).
+
+### 🔧 Changed
+- **iOS Minimum Deployment Target**: Raised from iOS 12.0 to iOS 15.0 to support modern Swift concurrency and `CallKit` APIs.
+- **Podspec source layout**: `source_files` and `resource_bundles` paths updated to match the new SPM directory structure.
+- **Podspec version and author**: Bumped to `0.0.2` and corrected author metadata.
+- **Logging**: Replaced `print` with `debugPrint` in `ussd_handler_method_channel.dart` and the example app to respect Flutter's output throttling and suppress logs in release mode.
+
+### 🗑️ Removed
+- **CocoaPods integration**: Removed `Podfile`, `Podfile.lock`, and all CocoaPods references from the example iOS project (`xcworkspace`, `xcconfig`, `project.pbxproj`).
+- **Legacy plugin class layout**: Removed `ios/Classes/UssdHandlerPlugin.swift` and `ios/Resources/PrivacyInfo.xcprivacy` in favour of the SPM package structure.
+
+### 📦 Dependencies
+- Bumped transitive dependency `vm_service` from `15.2.0` to `15.3.0` in the example app.
+
+---
+
 ## [0.0.2] - 2026-15-08
 
 ### ✨ Added
