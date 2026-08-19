@@ -140,7 +140,7 @@ class MethodChannelUssdHandler extends UssdHandlerPlatform {
       );
       return granted ?? false;
     } on PlatformException catch (e) {
-      print("Error requesting permissions: ${e.message}");
+      debugPrint("Error requesting permissions: ${e.message}");
       return false;
     }
   }

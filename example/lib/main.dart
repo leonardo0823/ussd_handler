@@ -25,10 +25,10 @@ Future<void> requestPermissionsFlow() async {
 
       if (isPermanent) {
         // Display a custom dialog notifying the user that they need to go to settings.
-        print("The user selected 'Do not ask again'. Redirecting...");
+        debugPrint("The user selected 'Do not ask again'. Redirecting...");
         await UssdHandler.openAppSettings();
       } else {
-        print("The user denied the permission temporarily.");
+        debugPrint("The user denied the permission temporarily.");
       }
     }
   }
