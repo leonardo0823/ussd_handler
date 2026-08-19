@@ -4,17 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    // TODO: Update your plugin name.
     name: "ussd_handler",
     platforms: [
-        // TODO: Update the platforms your plugin supports.
-        // If your plugin only supports iOS, remove `.macOS(...)`.
-        // If your plugin only supports macOS, remove `.iOS(...)`.
         .iOS("15.0")
     ],
     products: [
-        // TODO: Update your library and target names.
-        // If the plugin name contains "_", replace with "-" for the library name.
         .library(name: "ussd-handler", targets: ["ussd_handler"])
     ],
     dependencies: [
@@ -22,7 +16,6 @@ let package = Package(
     ],
     targets: [
         .target(
-            // TODO: Update your target name.
             name: "ussd_handler",
             dependencies: [
                 .product(name: "FlutterFramework", package: "FlutterFramework")

@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ussd_handler'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'A Flutter plugin for executing USSD codes natively on iOS.'
   s.description      = <<-DESC
 Flutter plugin for executing USSD codes on iOS devices. 
@@ -21,7 +21,7 @@ Includes system information and device capability verification.
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  s.swift_version = '5.0'
+  s.swift_version = '5.5'
 
   # Privacy manifest for APIs that require justification
   s.resource_bundles = {'ussd_handler_privacy' => ['ussd_handler/Sources/ussd_handler/PrivacyInfo.xcprivacy']}
