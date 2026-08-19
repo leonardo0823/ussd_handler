@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.4] - 2026-19-08
+
+### 🐛 Fixed
+- **USSD URL Encoding (iOS)**: Fixed a critical bug where USSD codes containing `#` (e.g., `*123#`) were silently truncated before reaching the phone dialer. The `#` character is the URI fragment separator; it is now percent-encoded as `%23` when building the `tel:` URL.
+- **iOS Dual-SIM Detection**: `simCount` and `supportsDualSim` were hardcoded to `1` and `false`. Both are now computed dynamically from active SIM providers via `serviceSubscriberCellularProviders`; iPhone XS and later with eSIM + physical SIM report the correct values.
+- **Missing `try-catch` in Permission Methods**: Added missing error handling to the Android code paths of `checkPhonePermissions`, `shouldShowPermissionRationale`, `isPermissionPermanentlyDenied`, and `openAppSettings`. Only `requestPhonePermissions` had a try-catch; unhandled `PlatformException` in the others propagated silently to the caller.
+- **Incorrect `getSystemInfo` Platform Annotation**: The platform interface doc incorrectly stated `getSystemInfo` was Android-only; it works on both platforms.
+
+### 🔧 Changed
+- **iOS Deprecated CoreTelephony API**: Replaced `CTTelephonyNetworkInfo.subscriberCellularProvider` (deprecated iOS 16) with `serviceSubscriberCellularProviders`, the multi-SIM–capable replacement available since iOS 12.
+- **iOS `systemInfo.deviceName` Removed**: Starting with iOS 16, `UIDevice.current.name` returns a generic `"iPhone"` string without a special entitlement. The field has been removed from the iOS `getSystemInfo` response to avoid misleading values.
+- **Podspec `swift_version`**: Bumped from `'5.0'` to `'5.5'` to align with the iOS 15.0 minimum deployment target introduced in 0.0.3.
+- **iOS Permission Comments**: Verbose multi-line comments in `ussd_handler_method_channel.dart` iOS guards replaced with single-line annotations.
+
+### 🗑️ Removed
+- **Unused `CallKit` Import**: Removed `import CallKit` from `UssdHandlerPlugin.swift`; no CallKit API was referenced in the implementation.
+- **Template TODO Comments**: Cleaned up leftover scaffold comments from `ios/ussd_handler/Package.swift`.
+
+### 📖 Documentation
+- Added `///` dartdoc to all previously undocumented public fields in `UssdResponse`, `SystemInfo`, `AccessibilityEventChannelResult`, and `MultiSessionResult`.
+- Added class-level doc to `UssdHandler` and `UssdHandlerPlatform`.
+- Added doc to `getPlatformVersion()` in both the public API and the platform interface.
+
+---
+
 ## [0.0.3] - 2026-18-08
 
 ### ✨ Added

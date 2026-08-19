@@ -1,6 +1,6 @@
 name: ussd_handler
 description: "A complete Flutter plugin for handling USSD codes on Android and iOS with advanced features including multi-USSD sessions."
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/leonardo0823/ussd_handler
 
 environment:
