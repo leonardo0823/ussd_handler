@@ -1,4 +1,3 @@
-import CallKit
 import CoreTelephony
 import Flutter
 import UIKit
@@ -132,7 +131,9 @@ public class UssdHandlerPlugin: NSObject, FlutterPlugin {
 
     // On iOS, USSD codes are executed using URL schemes
     // Note: iOS will open the phone app, but we cannot capture the response
-    if let url = URL(string: "tel:\(ussdCode)") {
+    // # is the URI fragment separator and must be encoded to reach the dialer intact
+    let encodedCode = ussdCode.replacingOccurrences(of: "#", with: "%23")
+    if let url = URL(string: "tel:\(encodedCode)") {
       DispatchQueue.main.async {
         if UIApplication.shared.canOpenURL(url) {
           UIApplication.shared.open(url) { success in
@@ -182,26 +183,28 @@ public class UssdHandlerPlugin: NSObject, FlutterPlugin {
     systemInfo["platform"] = "iOS"
     systemInfo["iosVersion"] = UIDevice.current.systemVersion
     systemInfo["deviceModel"] = UIDevice.current.model
-    systemInfo["deviceName"] = UIDevice.current.name
 
     // Device capabilities
-    systemInfo["canMakePhoneCalls"] = isUssdSupported()
-    systemInfo["ussdSupported"] = isUssdSupported()
+    let ussdSupported = isUssdSupported()
+    systemInfo["canMakePhoneCalls"] = ussdSupported
+    systemInfo["ussdSupported"] = ussdSupported
     systemInfo["ussdDirectSupported"] = false  // iOS does not support direct USSD
     systemInfo["multiSessionSupported"] = false  // iOS does not support multi-session
     systemInfo["accessibilityServiceSupported"] = false  // iOS does not support accessibility services like Android
 
     // Network and carrier information
-    if let carrier = networkInfo.subscriberCellularProvider {
+    // serviceSubscriberCellularProviders is deprecated in iOS 16 but has no public replacement
+    let providers = networkInfo.serviceSubscriberCellularProviders ?? [:]
+    if let carrier = providers.values.first {
       systemInfo["carrierName"] = carrier.carrierName ?? "Unknown"
       systemInfo["countryCode"] = carrier.isoCountryCode ?? "Unknown"
       systemInfo["mobileNetworkCode"] = carrier.mobileNetworkCode ?? "Unknown"
       systemInfo["mobileCountryCode"] = carrier.mobileCountryCode ?? "Unknown"
     }
 
-    // SIM information (limited on iOS)
-    systemInfo["simCount"] = 1  // iOS does not expose detailed information about multiple SIMs
-    systemInfo["supportsDualSim"] = false  // Simplified for iOS
+    let simCount = providers.count
+    systemInfo["simCount"] = simCount > 0 ? simCount : 1
+    systemInfo["supportsDualSim"] = simCount > 1
 
     // iOS-specific limitations
     systemInfo["limitations"] = [
