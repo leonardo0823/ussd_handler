@@ -118,22 +118,21 @@ class MethodChannelUssdHandler extends UssdHandlerPlatform {
 
   @override
   Future<bool> checkPhonePermissions() async {
-    if (Platform.isIOS) {
-      // On iOS, the permissions are not required for USSD, so we can return true.
-      return true;
+    if (Platform.isIOS) return true; // iOS has no CALL_PHONE permission model
+    try {
+      final bool? hasPermission = await methodChannel.invokeMethod(
+        'checkPhonePermissions',
+      );
+      return hasPermission ?? false;
+    } on PlatformException catch (e) {
+      debugPrint('Error checking phone permissions: ${e.message}');
+      return false;
     }
-    final bool? hasPermission = await methodChannel.invokeMethod(
-      'checkPhonePermissions',
-    );
-    return hasPermission ?? false;
   }
 
   @override
   Future<bool> requestPhonePermissions() async {
-    if (Platform.isIOS) {
-      // On iOS, the permissions are not required for USSD, so we can return true.
-      return true;
-    }
+    if (Platform.isIOS) return true; // iOS has no CALL_PHONE permission model
     try {
       final bool? granted = await methodChannel.invokeMethod(
         'requestPhonePermissions',
@@ -147,36 +146,44 @@ class MethodChannelUssdHandler extends UssdHandlerPlatform {
 
   @override
   Future<bool> shouldShowPermissionRationale() async {
-    if (Platform.isIOS) {
-      // On iOS, the permissions are not required for USSD, so we can return false.
+    if (Platform.isIOS) return false; // iOS has no permission rationale concept
+    try {
+      final bool? show = await methodChannel.invokeMethod(
+        'shouldShowPermissionRationale',
+      );
+      return show ?? false;
+    } on PlatformException catch (e) {
+      debugPrint('Error checking permission rationale: ${e.message}');
       return false;
     }
-    final bool? show = await methodChannel.invokeMethod(
-      'shouldShowPermissionRationale',
-    );
-    return show ?? false;
   }
 
   @override
   Future<bool> isPermissionPermanentlyDenied() async {
-    if (Platform.isIOS) {
-      // On iOS, the permissions are not required for USSD, so we can return false.
+    if (Platform.isIOS) return false; // iOS has no permanent denial concept
+    try {
+      final bool? isPermanent = await methodChannel.invokeMethod(
+        'isPermissionPermanentlyDenied',
+      );
+      return isPermanent ?? false;
+    } on PlatformException catch (e) {
+      debugPrint('Error checking permanent denial: ${e.message}');
       return false;
     }
-    final bool? isPermanent = await methodChannel.invokeMethod(
-      'isPermissionPermanentlyDenied',
-    );
-    return isPermanent ?? false;
   }
 
   @override
   Future<bool> openAppSettings() async {
     if (Platform.isIOS) {
-      // On iOS, the permissions are not required for USSD, so we can return false.
+      return false; // no USSD permission settings to open on iOS
+    }
+    try {
+      final bool? opened = await methodChannel.invokeMethod('openAppSettings');
+      return opened ?? false;
+    } on PlatformException catch (e) {
+      debugPrint('Error opening app settings: ${e.message}');
       return false;
     }
-    final bool? opened = await methodChannel.invokeMethod('openAppSettings');
-    return opened ?? false;
   }
 
   // ==================== ACCESSIBILITY METHODS ====================
